@@ -5,11 +5,12 @@
 export default class Todo {
   #todoDiv
   #newTodo
+  #timeDiv
 
   #todoInput = document.querySelector('.todo-input')
   #todoButton = document.querySelector('.todo-button')
   #todoList = document.querySelector('.todo-list')
-
+  
   /**
    *
    */
@@ -23,12 +24,12 @@ export default class Todo {
   #setEventListeners () {
     this.#todoButton.addEventListener('click', (event) => { this.#doTodo(event) })
     this.#todoInput.addEventListener('keydown', (event) => console.log(event.target.value))
-    // this.#todoList.addEventListener("click", this.#deleteTodo)
+    this.#todoList.addEventListener('click', (event) => this.#deleteTodo(event))
   }
 
   /**
    *
-   * @param e
+   * @param event
    */
   #doTodo (event) {
     event.preventDefault()
@@ -36,6 +37,7 @@ export default class Todo {
     this.#createTodoDiv()
     this.#createTodoList(event)
     this.#addTodo()
+    this.#createTimeDiv()
     this.#createStartButton()
     this.#createTrashButton()
     this.#todoList.appendChild(this.#todoDiv)
@@ -66,13 +68,20 @@ export default class Todo {
     this.#todoInput.value = ''
   }
 
+  #createTimeDiv () {
+    this.#timeDiv = document.createElement('p')
+    this.#timeDiv.classList.add('todo')
+    this.#timeDiv.innerText = 'tid'    // this.#todoInput.value
+    this.#todoDiv.appendChild(this.#timeDiv)
+  }
+
   /**
    *
    */
   #createStartButton () {
-    const completedButton = document.createElement('button')
-    completedButton.classList.add('start-btn')
-    this.#todoDiv.appendChild(completedButton)
+    const startButton = document.createElement('button')
+    startButton.classList.add('start-btn')
+    this.#todoDiv.appendChild(startButton)
   }
 
   /**
@@ -82,5 +91,23 @@ export default class Todo {
     const trashButton = document.createElement('button')
     trashButton.classList.add('trash-btn')
     this.#todoDiv.appendChild(trashButton)
+  }
+
+  /**
+   *
+   */
+  #deleteTodo (event) {
+    const item = event.target
+    if (item.classList[0] === 'trash-btn') {
+      const todo = item.parentElement
+      todo.classList.add('fall')
+      todo.addEventListener('transitionend', (e) => {
+        todo.remove()
+      })
+    }
+    if (item.classList[0] === 'start-btn') {
+      const todo = item.parentElement
+      console.log(todo)
+    }
   }
 }
