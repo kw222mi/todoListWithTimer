@@ -36,6 +36,8 @@ export default class Todo {
     this.#createTodoDiv()
     this.#createTodoList(event)
     this.#addTodo()
+    this.#createStartButton()
+    this.#createTrashButton()
     this.#todoList.appendChild(this.#todoDiv)
   }
 
@@ -64,4 +66,21 @@ export default class Todo {
     this.#todoInput.value = ''
   }
 
+  /**
+   *
+   */
+  #createStartButton () {
+    const completedButton = document.createElement('button')
+    completedButton.classList.add('start-btn')
+    this.#todoDiv.appendChild(completedButton)
+  }
+
+  /**
+   *
+   */
+  #createTrashButton () {
+    const trashButton = document.createElement('button')
+    trashButton.classList.add('trash-btn')
+    this.#todoDiv.appendChild(trashButton)
+  }
 }
