@@ -1,14 +1,15 @@
 import Timer from '/src/components/Timer.js'
+import SaveAndRead from '/src/components/SaveAndRead.js'
 
 /**
  *
  */
 export default class Todo {
   #todoDiv
-  #newTodo
   #timeDiv
   #timerDiv
   #todoTimeInSeconds
+  #todoTask
 
   #todoInput = document.querySelector('.todo-input')
   #timeInput = document.querySelector('.time-input')
@@ -18,15 +19,20 @@ export default class Todo {
   /**
    *
    */
-  constructor() {
+  constructor () {
     this.#setEventListeners()
+    const load = new SaveAndRead()
+    const todos = load.loadTodos()
+    for (let i = 0; i < todos.length; i++) {
+      this.#loadTodos(todos[i])
+    }
   }
 
   /**
    *
    */
   #setEventListeners() {
-    this.#todoButton.addEventListener('click', (event) => { this.#doTodo(event) })
+    this.#todoButton.addEventListener('click', (event) => { this.#getInputAndCreate(event) })
     this.#todoInput.addEventListener('keydown', (event) => console.log(event.target.value))
     this.#todoList.addEventListener('click', (event) => this.#deleteTodo(event))
   }
@@ -35,12 +41,29 @@ export default class Todo {
    *
    * @param event
    */
-  #doTodo(event) {
+  #getInputAndCreate (event) {
     event.preventDefault()
-    console.log('dotodo')
+
+    this.#todoTask = this.#todoInput.value
+    this.#todoTimeInSeconds = this.#minToSec(this.#timeInput.value)
+    this.#doTodo()
+  }
+
+  #doTodo () {
     this.#createTodoDiv()
     this.#createTodoList(event)
-    this.#addTodo()
+    //this.#addTodo()
+    this.#createTimeDiv(event)
+    this.#createStartButton()
+    this.#createTrashButton()
+    this.#todoList.appendChild(this.#todoDiv)
+    this.#saveTodo()
+  }
+
+  #load() {
+    this.#createTodoDiv()
+    this.#createTodoList(event)
+    //this.#addTodo()
     this.#createTimeDiv(event)
     this.#createStartButton()
     this.#createTrashButton()
@@ -50,7 +73,7 @@ export default class Todo {
   /**
    *
    */
-  #createTodoDiv() {
+  #createTodoDiv () {
     this.#todoDiv = document.createElement('div')
     this.#todoDiv.classList.add('todo')
   }
@@ -58,24 +81,24 @@ export default class Todo {
   /**
    *
    */
-  #createTodoList(event) {
-    this.#newTodo = document.createElement('li')
-    this.#newTodo.innerText = this.#todoInput.value
+  #createTodoList() {
+    const newTodo = document.createElement('li')
+    newTodo.innerText = this.#todoTask
+    this.#addTodo(newTodo)
   }
 
   /**
    *
    */
-  #addTodo() {
-    this.#newTodo.classList.add('todo-item')
-    this.#todoDiv.appendChild(this.#newTodo)
+  #addTodo(newTodo) {
+    newTodo.classList.add('todo-item')
+    this.#todoDiv.appendChild(newTodo)
     this.#todoInput.value = ''
   }
 
   #createTimeDiv(event) {
     this.#timeDiv = document.createElement('p')
     this.#timeDiv.classList.add('todo')
-    this.#todoTimeInSeconds = this.#minToSec(this.#timeInput.value)
     this.#timeDiv.innerText = this.#timeInput.value
     this.#todoDiv.appendChild(this.#timeDiv)
     this.#timeInput.value = ''
@@ -94,7 +117,7 @@ export default class Todo {
   /**
    *
    */
-  #createTrashButton () {
+  #createTrashButton() {
     const trashButton = document.createElement('button')
     trashButton.innerText = 'Ta bort'
     trashButton.classList.add('trash-btn')
@@ -120,8 +143,27 @@ export default class Todo {
   /**
    *
    */
-  #minToSec (inputTime) {
+  #minToSec(inputTime) {
     return inputTime * 60
+  }
+
+  /**
+   *
+   */
+  #saveTodo () {
+    const todoToSave = {
+      task: this.#todoTask,
+      time: this.#todoTimeInSeconds
+    }
+    const save = new SaveAndRead()
+    save.saveTodosToLocal(todoToSave)
+  }
+
+  #loadTodos(todo) {
+
+    this.#todoTask = todo.task
+    this.#todoTimeInSeconds = todo.time
+    this.#load()
   }
 
   /**
