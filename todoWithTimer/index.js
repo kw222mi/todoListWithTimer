@@ -14,15 +14,6 @@ document.querySelector('#app').innerHTML = `
 `
 let todo = new Todo ()
 
-let timerDiv = document.querySelector('#timerDiv')
 
-let timer = new Timer ({
-  displayElement: timerDiv,
-  timerTime: 30,
-  showProgressBar: true,
-  pauseOnHover: true,
-  timeIsUpAction: 'color',
-  tenSecondsLeftWarning: true
-})
 
 

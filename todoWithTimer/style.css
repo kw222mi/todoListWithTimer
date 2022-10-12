@@ -44,7 +44,7 @@ form button:hover {
 }
 
 .todo-list {
-  min-width: 30%;
+  min-width: 50%;
   list-style: none;
 }
 
@@ -94,6 +94,10 @@ form button:hover {
 .completed {
   text-decoration: line-through;
   opacity: 0.5;
+}
+
+.todo-input-time {
+  width: 100px;
 }
 
 /*CUSTOM SELECTOR */
