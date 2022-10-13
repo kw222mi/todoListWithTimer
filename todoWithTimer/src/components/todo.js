@@ -6,9 +6,10 @@ import SaveAndRead from '/src/components/SaveAndRead.js'
  */
 export default class Todo {
   #todoDiv
-  #timeDiv
+  #timeP
   #timerDiv
   #todoTimeInSeconds
+  #todoTimeInMinutes
   #todoTask
 
   #todoInput = document.querySelector('.todo-input')
@@ -46,6 +47,7 @@ export default class Todo {
 
     this.#todoTask = this.#todoInput.value
     this.#todoTimeInSeconds = this.#minToSec(this.#timeInput.value)
+    this.#todoTimeInMinutes = this.#timeInput.value
     this.#doTodo()
   }
 
@@ -68,6 +70,8 @@ export default class Todo {
     this.#createStartButton()
     this.#createTrashButton()
     this.#todoList.appendChild(this.#todoDiv)
+
+    //  fixa remove from local
   }
 
   /**
@@ -97,10 +101,10 @@ export default class Todo {
   }
 
   #createTimeDiv(event) {
-    this.#timeDiv = document.createElement('p')
-    this.#timeDiv.classList.add('todo')
-    this.#timeDiv.innerText = this.#timeInput.value
-    this.#todoDiv.appendChild(this.#timeDiv)
+    this.#timeP = document.createElement('p')
+    this.#timeP.classList.add('todo')
+    this.#timeP.innerText = this.#todoTimeInMinutes
+    this.#todoDiv.appendChild(this.#timeP)
     this.#timeInput.value = ''
   }
 
@@ -124,20 +128,25 @@ export default class Todo {
     this.#todoDiv.appendChild(trashButton)
   }
 
-  #startTodo(todo) {
+  #createTimer(todo, text) {
 
     this.#timerDiv = document.createElement('div')
     this.#timerDiv.setAttribute('id', 'timerDiv')
     todo.appendChild(this.#timerDiv)
+    console.log(text)
+    const tInt = parseInt(text)
+    const tid = this.#minToSec(tInt)
+    
 
-    let timer = new Timer({
+    const timer = new Timer({
       displayElement: this.#timerDiv,
-      timerTime: this.#todoTimeInSeconds,
+      timerTime: tid,
       showProgressBar: true,
       pauseOnHover: true,
-      timeIsUpAction: 'color',
+      timeIsUpAction: 'alertAndRemove',
       tenSecondsLeftWarning: true
     })
+    
   }
 
   /**
@@ -163,6 +172,7 @@ export default class Todo {
 
     this.#todoTask = todo.task
     this.#todoTimeInSeconds = todo.time
+    this.#todoTimeInMinutes = todo.time / 60
     this.#load()
   }
 
@@ -173,15 +183,19 @@ export default class Todo {
     const item = event.target
     if (item.classList[0] === 'trash-btn') {
       const todo = item.parentElement
+      console.log(' todo' + todo)
       todo.classList.add('fall')
       todo.addEventListener('transitionend', (e) => {
         todo.remove()
+        const save = new SaveAndRead()
+        save.removeLocalTodos(todo)
       })
     }
     if (item.classList[0] === 'start-btn') {
       const todo = item.parentElement
-      console.log(todo)
-      this.#startTodo(todo)
+      const t = todo.childNodes[1]
+      const text = t.textContent
+      this.#createTimer(todo, text)
     }
   }
 }
