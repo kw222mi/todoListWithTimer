@@ -1,0 +1,25 @@
+{
+  "name": "todolistwithtimer",
+  "version": "1.0.0",
+  "description": "todolist with timer function",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "npx eslint ./src || exit 0",
+    "lint:fix": "npx eslint ./src --fix || exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kw222mi/todoListWithTimer.git"
+  },
+  "author": "Therese Weidenstedt",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kw222mi/todoListWithTimer/issues"
+  },
+  "homepage": "https://github.com/kw222mi/todoListWithTimer#readme",
+  "eslintConfig": {
+    "extends": "@lnu"
+  }
+
+}
