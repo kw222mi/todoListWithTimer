@@ -20,13 +20,13 @@ export default class Todo {
   /**
    *
    */
-  constructor () {
-    this.#setEventListeners()
+  constructor() {
     const load = new SaveAndRead()
     const todos = load.loadTodos()
     for (let i = 0; i < todos.length; i++) {
       this.#loadTodos(todos[i])
     }
+    this.#setEventListeners()
   }
 
   /**
@@ -34,50 +34,41 @@ export default class Todo {
    */
   #setEventListeners() {
     this.#todoButton.addEventListener('click', (event) => { this.#getInputAndCreate(event) })
-    this.#todoInput.addEventListener('keydown', (event) => console.log(event.target.value))
-    this.#todoList.addEventListener('click', (event) => this.#deleteTodo(event))
+    this.#todoList.addEventListener('click', (event) => this.#handleButtons(event))
   }
 
   /**
    *
    * @param event
    */
-  #getInputAndCreate (event) {
+  #getInputAndCreate(event) {
     event.preventDefault()
 
     this.#todoTask = this.#todoInput.value
     this.#todoTimeInSeconds = this.#minToSec(this.#timeInput.value)
     this.#todoTimeInMinutes = this.#timeInput.value
     this.#doTodo()
-  }
-
-  #doTodo () {
-    this.#createTodoDiv()
-    this.#createTodoList(event)
-    //this.#addTodo()
-    this.#createTimeDiv(event)
-    this.#createStartButton()
-    this.#createTrashButton()
-    this.#todoList.appendChild(this.#todoDiv)
     this.#saveTodo()
   }
 
-  #load() {
-    this.#createTodoDiv()
-    this.#createTodoList(event)
-    //this.#addTodo()
-    this.#createTimeDiv(event)
+  #doTodo() {
+    this.#createToDo()
     this.#createStartButton()
+    this.#createCompletedButton()
     this.#createTrashButton()
     this.#todoList.appendChild(this.#todoDiv)
+  }
 
-    //  fixa remove from local
+  #createToDo() {
+    this.#createTodoDiv()
+    this.#createTodoList()
+    this.#createTimeDiv()
   }
 
   /**
    *
    */
-  #createTodoDiv () {
+  #createTodoDiv() {
     this.#todoDiv = document.createElement('div')
     this.#todoDiv.classList.add('todo')
   }
@@ -100,7 +91,7 @@ export default class Todo {
     this.#todoInput.value = ''
   }
 
-  #createTimeDiv(event) {
+  #createTimeDiv() {
     this.#timeP = document.createElement('p')
     this.#timeP.classList.add('todo')
     this.#timeP.innerText = this.#todoTimeInMinutes
@@ -111,11 +102,18 @@ export default class Todo {
   /**
    *
    */
-  #createStartButton() {
+  #createStartButton () {
     const startButton = document.createElement('button')
     startButton.classList.add('start-btn')
     startButton.innerText = 'start'
     this.#todoDiv.appendChild(startButton)
+  }
+
+  #createCompletedButton () {
+    const completedButton = document.createElement('button')
+    completedButton.innerText = 'completed'
+    completedButton.classList.add('complete-btn')
+    this.#todoDiv.appendChild(completedButton)
   }
 
   /**
@@ -123,20 +121,17 @@ export default class Todo {
    */
   #createTrashButton() {
     const trashButton = document.createElement('button')
-    trashButton.innerText = 'Ta bort'
+    trashButton.innerText = 'Remove'
     trashButton.classList.add('trash-btn')
     this.#todoDiv.appendChild(trashButton)
   }
 
   #createTimer(todo, text) {
-
     this.#timerDiv = document.createElement('div')
     this.#timerDiv.setAttribute('id', 'timerDiv')
     todo.appendChild(this.#timerDiv)
-    console.log(text)
     const tInt = parseInt(text)
     const tid = this.#minToSec(tInt)
-    
 
     const timer = new Timer({
       displayElement: this.#timerDiv,
@@ -146,7 +141,6 @@ export default class Todo {
       timeIsUpAction: 'alertAndRemove',
       tenSecondsLeftWarning: true
     })
-    
   }
 
   /**
@@ -159,7 +153,7 @@ export default class Todo {
   /**
    *
    */
-  #saveTodo () {
+  #saveTodo() {
     const todoToSave = {
       task: this.#todoTask,
       time: this.#todoTimeInSeconds
@@ -173,29 +167,45 @@ export default class Todo {
     this.#todoTask = todo.task
     this.#todoTimeInSeconds = todo.time
     this.#todoTimeInMinutes = todo.time / 60
-    this.#load()
+    this.#doTodo()
   }
 
   /**
    *
    */
-  #deleteTodo(event) {
+  #handleButtons(event) {
     const item = event.target
+    const todo = item.parentElement
+
     if (item.classList[0] === 'trash-btn') {
-      const todo = item.parentElement
-      console.log(' todo' + todo)
-      todo.classList.add('fall')
-      todo.addEventListener('transitionend', (e) => {
-        todo.remove()
-        const save = new SaveAndRead()
-        save.removeLocalTodos(todo)
-      })
+      this.#handleTrashButton(todo)
+    }
+    if (item.classList[0] === 'complete-btn') {
+      this.#handleCompleteButton(todo)
     }
     if (item.classList[0] === 'start-btn') {
-      const todo = item.parentElement
-      const t = todo.childNodes[1]
-      const text = t.textContent
-      this.#createTimer(todo, text)
+      this.#handleStartButton(todo)
     }
   }
+
+  #handleTrashButton (todo) {
+   // const todo = item.parentElement
+      todo.classList.add('fall')
+      todo.addEventListener('transitionend', () => {
+        todo.remove()
+        const save = new SaveAndRead()
+        save.removeTodosFromLocalstorage(todo)
+      })
+  }
+
+  #handleCompleteButton (todo) {
+    todo.classList.toggle('completed')
+  }
+
+  #handleStartButton (todo) {
+    const t = todo.childNodes[1]
+      const text = t.textContent
+      this.#createTimer(todo, text)
+  }
+  
 }

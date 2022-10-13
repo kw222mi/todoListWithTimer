@@ -44,7 +44,7 @@ form button:hover {
 }
 
 .todo-list {
-  min-width: 50%;
+  min-width: 60%;
   list-style: none;
 }
 
@@ -65,6 +65,7 @@ form button:hover {
   flex: 1;
 }
 
+.complete-btn,
 .trash-btn,
 .start-btn {
   background: #eb5a07;
@@ -77,6 +78,10 @@ form button:hover {
 .start-btn {
   background: rgb(245, 150, 8);
 }
+.complete-btn{
+  background: rgb(248, 110, 17);
+}
+
 .todo-item {
   padding: 0rem 0.5rem;
 }
@@ -136,8 +141,7 @@ select {
   pointer-events: none;
 }
 /* Transition */
-/*
+
 .select:hover::after {
   transform: scale(1.5);
 }
-*/
