@@ -15,7 +15,7 @@ When you are redy to begin the task, you start the timer. Everything is saved in
 
 - tasks being saved to localstorage.
 
-## Future ddevelopment
+## Future development
 
 - task priority
 
