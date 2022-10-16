@@ -9,8 +9,6 @@ export default class SaveAndRead {
     const todos = this.loadTodos()
     todos.push(todo)
     localStorage.setItem('todos', JSON.stringify(todos))
-    console.log('save and read')
-    console.log(todos)
   }
 
   removeTodosFromLocalstorage(todo) {

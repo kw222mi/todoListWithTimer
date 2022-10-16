@@ -18,22 +18,26 @@ export default class Todo {
   #todoList = document.querySelector('.todo-list')
 
   /**
-   *
+   * 
    */
   constructor() {
+    this.#loadSavedTodos()
+    this.#setEventListeners()
+  }
+
+  #loadSavedTodos () {
     const load = new SaveAndRead()
     const todos = load.loadTodos()
     for (let i = 0; i < todos.length; i++) {
       this.#loadTodos(todos[i])
     }
-    this.#setEventListeners()
   }
 
   /**
    *
    */
   #setEventListeners() {
-    this.#todoButton.addEventListener('click', (event) => { this.#getInputAndCreate(event) })
+    this.#todoButton.addEventListener('click', (event) => { this.#createTodoAndSaveIt(event) })
     this.#todoList.addEventListener('click', (event) => this.#handleButtons(event))
   }
 
@@ -41,28 +45,28 @@ export default class Todo {
    *
    * @param event
    */
-  #getInputAndCreate(event) {
+  #createTodoAndSaveIt(event) {
     event.preventDefault()
 
     this.#todoTask = this.#todoInput.value
     this.#todoTimeInSeconds = this.#minToSec(this.#timeInput.value)
     this.#todoTimeInMinutes = this.#timeInput.value
-    this.#doTodo()
+    this.#createTodoComponent()
     this.#saveTodo()
   }
 
-  #doTodo() {
-    this.#createToDo()
+  #createTodoComponent() {
+    this.#createHtmlElements()
     this.#createStartButton()
     this.#createCompletedButton()
     this.#createTrashButton()
     this.#todoList.appendChild(this.#todoDiv)
   }
 
-  #createToDo() {
+  #createHtmlElements() {
     this.#createTodoDiv()
     this.#createTodoList()
-    this.#createTimeDiv()
+    this.#createTimeParagraf()
   }
 
   /**
@@ -79,19 +83,19 @@ export default class Todo {
   #createTodoList() {
     const newTodo = document.createElement('li')
     newTodo.innerText = this.#todoTask
-    this.#addTodo(newTodo)
+    this.#addNewTodo(newTodo)
   }
 
   /**
    *
    */
-  #addTodo(newTodo) {
+  #addNewTodo(newTodo) {
     newTodo.classList.add('todo-item')
     this.#todoDiv.appendChild(newTodo)
     this.#todoInput.value = ''
   }
 
-  #createTimeDiv() {
+  #createTimeParagraf() {
     this.#timeP = document.createElement('p')
     this.#timeP.classList.add('todo')
     this.#timeP.innerText = this.#todoTimeInMinutes
@@ -167,7 +171,7 @@ export default class Todo {
     this.#todoTask = todo.task
     this.#todoTimeInSeconds = todo.time
     this.#todoTimeInMinutes = todo.time / 60
-    this.#doTodo()
+    this.#createTodoComponent()
   }
 
   /**
