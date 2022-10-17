@@ -58,9 +58,7 @@ form button:hover {
   align-items: center;
   transition: all 1s ease;
 }
-.filter-todo {
-  padding: 1rem;
-}
+
 .todo li {
   flex: 1;
 }
@@ -86,11 +84,6 @@ form button:hover {
   padding: 0rem 0.5rem;
 }
 
-.fa-trash,
-.fa-check {
-  pointer-events: none;
-}
-
 .fall {
   transform: translateY(10rem) rotateZ(20deg);
   opacity: 0;
@@ -105,30 +98,6 @@ form button:hover {
   width: 100px;
 }
 
-/*CUSTOM SELECTOR */
-select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -ms-appearance: none;
-  appearance: none;
-  outline: 0;
-  box-shadow: none;
-  border: 0 !important;
-  background-image: none;
-}
-
-/* Custom Select */
-.select {
-  margin: 1rem;
-  position: relative;
-  overflow: hidden;
-}
-select {
-  color: #ff6f47;
-  font-family: "Poppins", sans-serif;
-  cursor: pointer;
-  width: 12rem;
-}
 /* Arrow */
 .select::after {
   content: "\25BC";
@@ -145,3 +114,34 @@ select {
 .select:hover::after {
   transform: scale(1.5);
 }
+
+/* Timer */
+#timerDiv {
+  box-sizing: border-box;
+  padding: .75rem;
+  background-color: white;  
+  position: relative;
+  cursor: pointer;
+  transition: transform 300ms ease-in-out;
+  overflow: hidden;
+  width: 150px;
+  
+}
+
+/*The progressbar */
+#timerDiv.progress::after {
+  content: "";
+  position: absolute;
+  height: 7px;
+  width: calc(100% * var(--progress));
+  background-color: rgb(238, 12, 106);
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+
+
+
+
+

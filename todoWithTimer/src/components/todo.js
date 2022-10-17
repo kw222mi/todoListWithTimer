@@ -1,5 +1,4 @@
-import Timer from '/src/components/Timer.js'
-import SaveAndRead from '/src/components/SaveAndRead.js'
+import SaveAndRead from './SaveAndRead.js'
 
 /**
  *
@@ -7,10 +6,11 @@ import SaveAndRead from '/src/components/SaveAndRead.js'
 export default class Todo {
   #todoDiv
   #timeP
-  #timerDiv
   #todoTimeInSeconds
   #todoTimeInMinutes
   #todoTask
+  #saveAndRead
+  #todotimer
 
   #todoInput = document.querySelector('.todo-input')
   #timeInput = document.querySelector('.time-input')
@@ -20,32 +20,40 @@ export default class Todo {
   /**
    * 
    */
-  constructor() {
-    this.#loadSavedTodos()
+  constructor(saveAndRead, todotimer) {
+    this.#saveAndRead = saveAndRead
+    this.#todotimer = todotimer
     this.#setEventListeners()
+    this.#getSavedTodos()
   }
 
-  #loadSavedTodos () {
-    const load = new SaveAndRead()
-    const todos = load.loadTodos()
+  /**
+ *
+ */
+  #setEventListeners() {
+    this.#todoButton.addEventListener('click', (event) => { this.#createNewTodoAndSaveIt(event) })
+    this.#todoList.addEventListener('click', (event) => this.#handleButtons(event))
+  }
+
+  #getSavedTodos() {
+    const todos = this.#saveAndRead.loadTodos()
     for (let i = 0; i < todos.length; i++) {
       this.#loadTodos(todos[i])
     }
   }
 
-  /**
-   *
-   */
-  #setEventListeners() {
-    this.#todoButton.addEventListener('click', (event) => { this.#createTodoAndSaveIt(event) })
-    this.#todoList.addEventListener('click', (event) => this.#handleButtons(event))
+  #loadTodos(todo) {
+    this.#todoTask = todo.task
+    this.#todoTimeInSeconds = todo.time
+    this.#todoTimeInMinutes = todo.time / 60
+    this.#createTodoComponent()
   }
 
   /**
    *
    * @param event
    */
-  #createTodoAndSaveIt(event) {
+  #createNewTodoAndSaveIt(event) {
     event.preventDefault()
 
     this.#todoTask = this.#todoInput.value
@@ -66,7 +74,7 @@ export default class Todo {
   #createHtmlElements() {
     this.#createTodoDiv()
     this.#createTodoList()
-    this.#createTimeParagraf()
+    this.#createTimeParagraph()
   }
 
   /**
@@ -95,7 +103,7 @@ export default class Todo {
     this.#todoInput.value = ''
   }
 
-  #createTimeParagraf() {
+  #createTimeParagraph() {
     this.#timeP = document.createElement('p')
     this.#timeP.classList.add('todo')
     this.#timeP.innerText = this.#todoTimeInMinutes
@@ -106,14 +114,14 @@ export default class Todo {
   /**
    *
    */
-  #createStartButton () {
+  #createStartButton() {
     const startButton = document.createElement('button')
     startButton.classList.add('start-btn')
     startButton.innerText = 'start'
     this.#todoDiv.appendChild(startButton)
   }
 
-  #createCompletedButton () {
+  #createCompletedButton() {
     const completedButton = document.createElement('button')
     completedButton.innerText = 'completed'
     completedButton.classList.add('complete-btn')
@@ -128,23 +136,6 @@ export default class Todo {
     trashButton.innerText = 'Remove'
     trashButton.classList.add('trash-btn')
     this.#todoDiv.appendChild(trashButton)
-  }
-
-  #createTimer(todo, text) {
-    this.#timerDiv = document.createElement('div')
-    this.#timerDiv.setAttribute('id', 'timerDiv')
-    todo.appendChild(this.#timerDiv)
-    const tInt = parseInt(text)
-    const tid = this.#minToSec(tInt)
-
-    const timer = new Timer({
-      displayElement: this.#timerDiv,
-      timerTime: tid,
-      showProgressBar: true,
-      pauseOnHover: true,
-      timeIsUpAction: 'alertAndRemove',
-      tenSecondsLeftWarning: true
-    })
   }
 
   /**
@@ -166,14 +157,6 @@ export default class Todo {
     save.saveTodosToLocal(todoToSave)
   }
 
-  #loadTodos(todo) {
-
-    this.#todoTask = todo.task
-    this.#todoTimeInSeconds = todo.time
-    this.#todoTimeInMinutes = todo.time / 60
-    this.#createTodoComponent()
-  }
-
   /**
    *
    */
@@ -192,24 +175,23 @@ export default class Todo {
     }
   }
 
-  #handleTrashButton (todo) {
-   // const todo = item.parentElement
-      todo.classList.add('fall')
-      todo.addEventListener('transitionend', () => {
-        todo.remove()
-        const save = new SaveAndRead()
-        save.removeTodosFromLocalstorage(todo)
-      })
+  #handleTrashButton(todo) {
+    // const todo = item.parentElement
+    todo.classList.add('fall')
+    todo.addEventListener('transitionend', () => {
+      todo.remove()
+      const save = new SaveAndRead()
+      save.removeTodosFromLocalstorage(todo)
+    })
   }
 
-  #handleCompleteButton (todo) {
+  #handleCompleteButton(todo) {
     todo.classList.toggle('completed')
   }
 
-  #handleStartButton (todo) {
+  #handleStartButton(todo) {
     const t = todo.childNodes[1]
-      const text = t.textContent
-      this.#createTimer(todo, text)
+    const text = t.textContent
+    this.#todotimer.createTimer(todo, text)
   }
-  
 }
