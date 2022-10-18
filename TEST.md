@@ -29,7 +29,7 @@ minutes: 15
 
 ### Output:
 
-![Output](./img_test/1.1_50.png )
+![Output](./todoWithTimer/img_test/1.1_50.png )
 
 ### 1.2 Input: 
 
@@ -39,7 +39,7 @@ minutes:     (tomt)
 
 ### Output:
 
-![Output](./img_test/1.2_50.png )
+![Output](./todoWithTimer/img_test/1.2_50.png )
 
 ### 1.3 Input: 
 
@@ -49,7 +49,7 @@ minutes: femton
 
 ### Output:
 
-![Output](./img_test/1.3_50.png )
+![Output](./todoWithTimer/img_test/1.3_50.png )
 
 ### 1.4 Input: 
 
@@ -59,7 +59,7 @@ minutes: 15
 
 ### Output:
 
-![Output](./img_test/1.4_50.png )
+![Output](./todoWithTimer/img_test/1.4_50.png )
 
 ## Ta bort todo
 
@@ -67,19 +67,19 @@ minutes: 15
 
 ### Output:
 
-![Output](./img_test/2.1_50.png )
+![Output](./todoWithTimer/img_test/2.1_50.png )
 
 ### 2.2 Ta bort todon i mitten
 
 ### Output:
 
-![Output](./img_test/2.2_50.png )
+![Output](./todoWithTimer/img_test/2.2_50.png )
 
 ### 2.3 Ta bort den sista todon
 
 ### Output:
 
-![Output](./img_test/2.3_50.png )
+![Output](./todoWithTimer/img_test/2.3_50.png )
 
 ## Starta tid
 
@@ -87,7 +87,7 @@ minutes: 15
 
 ### Output:
 
-![Output](./img_test/3.1_50.png )
+![Output](./todoWithTimer/img_test/3.1_50.png )
 
 ## Completed
 
@@ -95,4 +95,4 @@ minutes: 15
 
 ### Output:
 
-![Output](./img_test/4.1_1_50.png )
+![Output](./todoWithTimer/img_test/4.1_1_50.png )
