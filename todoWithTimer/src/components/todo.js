@@ -1,4 +1,3 @@
-import './SaveAndRead.js'
 
 /**
  * Create a todo component with buttons for start, completed and remove.
