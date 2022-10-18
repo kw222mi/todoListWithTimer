@@ -40,15 +40,15 @@ The Module test report can be found here Module Test Report [Test Report]().
 
 Todo with timer is built with [vite](https://vitejs.dev/)
 
-#clone the repo:
+### clone the repo:
 
-git clone https://github.com/kw222mi/todoListWithTimer.git
+git clone `https://github.com/kw222mi/todoListWithTimer.git`
 
-#install dependencies:
+### install dependencies:
 
 npm i
 
-#serve with hot reload on localhost:
+### serve with hot reload on localhost:
 
 npm run dev
 

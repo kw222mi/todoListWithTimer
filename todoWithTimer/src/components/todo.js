@@ -1,7 +1,7 @@
-import SaveAndRead from './SaveAndRead.js'
+import './SaveAndRead.js'
 
 /**
- *
+ * Create a todo component with buttons for start, completed and remove.
  */
 export default class Todo {
   #todoDiv
@@ -14,7 +14,7 @@ export default class Todo {
 
   #todoInput = document.querySelector('.todo-input')
   #timeInput = document.querySelector('.time-input')
-  #todoButton = document.querySelector('.todo-button')
+  #addTodoButton = document.querySelector('.todo-button')
   #todoList = document.querySelector('.todo-list')
 
   // Constructor take instances of classes saveAndRead and button for use in the class.
@@ -25,8 +25,9 @@ export default class Todo {
     this.#getSavedTodos()
   }
 
+  // add eventlisteners for the input and the buttons in the todo.
   #setEventListeners () {
-    this.#todoButton.addEventListener('click', (event) => { this.#createNewTodoAndSaveIt(event) })
+    this.#addTodoButton.addEventListener('click', (event) => { this.#createNewTodoAndSaveIt(event) })
     this.#todoList.addEventListener('click', (event) => this.#button.handleButtonsEvent(event))
   }
 
@@ -46,6 +47,7 @@ export default class Todo {
     this.#createTodoComponent()
   }
 
+  // create new todo from input
   #createNewTodoAndSaveIt (event) {
     event.preventDefault()
     this.#todoTask = this.#todoInput.value
@@ -64,8 +66,7 @@ export default class Todo {
       task: this.#todoTask,
       time: this.#todoTimeInSeconds
     }
-    const save = new SaveAndRead()
-    save.saveTodosToLocal(todoToSave)
+    this.#saveAndRead.saveTodosToLocal(todoToSave)
   }
 
   #createTodoComponent () {
