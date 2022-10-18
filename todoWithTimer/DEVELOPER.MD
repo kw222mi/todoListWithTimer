@@ -30,7 +30,7 @@ The Module can be found here [Module Repo](https://github.com/kw222mi/time_compo
 
 The Module readme can be found here  [Module Readme](https://github.com/kw222mi/time_component/blob/main/README.md).
 
-The Module test report can be found here Module Test Report [Test Report]().
+The Module test report can be found here Module Test Report [Test Report](https://github.com/kw222mi/time_component/blob/main/TESTRAPPORT.md).
 
 ## The structure
 
