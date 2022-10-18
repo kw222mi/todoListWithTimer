@@ -1,4 +1,4 @@
-import './style.css'
+import './public/css/style.css'
 import Todo from './src/components/Todo.js'
 import SaveAndRead from './src/components/SaveAndRead'
 import TodoTimer from './src/components/TodoTimer'
