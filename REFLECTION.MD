@@ -6,10 +6,9 @@ Jag hamnar lätt i fällan att alla namn liknar varandra. Vilket gör att de bli
 
 Jag hittade också dessa tre namn på metoder, där det är högst osäkert vad de egentligen gör utifrån namnen.
 
-![Example](./img_test/namngivning_exempel_50.png)
+![Example](./todoWithTimer//img_test/namngivning_exempel_50.png)
 
-
-Jag försökte görra det tydligare genom att byta till följande
+Jag försökte göra det tydligare genom att byta till följande
 
 - getInputAndCreateTodo()  =>  createNewTodoAndSaveIt()
 
@@ -23,7 +22,7 @@ Under denna kurs har jag blivit mycket bättre på att göra fler och mindre met
 
 Den här metod finns i min timermodul. Och jag har inte hunnit med att åtgärda den eftersom jag behöver bygga om hela klassen för att fixa det.
 
-![Example](./img_test/side_effect_example.png)
+![Example](./todoWithTimer/img_test/side_effect_example.png)
 
 ## Kapitel 4
 
@@ -31,11 +30,11 @@ Jag gillar tänket kring kommentarer i boken. Jag har skrivit en hel del JS-doc 
 
 Jag är nöjd när jag lyckas tillföra information, som här: 
 
-![Example](./img_test/kommentarer.png)
+![Example](./todoWithTimer/img_test/kommentarer.png)
 
 Men har många ställen där jag blir osäker om jag behöver förtydliga och gör det då för säkerhetsskull:
 
-![Example](./img_test/kommentarer2.png)
+![Example](./todoWithTimer/img_test/kommentarer2.png)
 
 Här skulle väl en namnändring kunna vara en del av lösningen, som  #todoList => #todoButtonList. Men det är egentligen inte sant för lyssnaren sitter på hela todocomponenten och inte på knapparna i sig, men själva eventen sker ju på knapparna.
 
