@@ -32,15 +32,15 @@ When you are redy to begin the task, you start the timer. Everything is saved in
 
 ## Install and Run
 
-#clone the repo
+### clone the repo
 
 git clone https://github.com/kw222mi/todoListWithTimer.git
 
-#into the project root
+### get into the project root
 
 cd todoWithTimer
 
-#get the timer module
+### get the timer module
 
 The application is built on a timer module, that is not included in this repo.
 
@@ -48,7 +48,7 @@ To run the app you need to copy the Timer.js class and place it in src/component
 
 You vill find the timer module [here](https://github.com/kw222mi/time_component/blob/main/time_component/time_component/src/Timer.js)
 
-#Running Locally
+### Running Locally
 
 If you want to start the application you can run it locally:
 
@@ -62,12 +62,12 @@ Open http://127.0.0.1:5173/ to view it in the browser
 
 
 
-# Code Style
+## Code Style
 
 EsLint - eslint.org
 [eslint](https://img.shields.io/badge/code_style-standard-brightgreen.svg)
 
-# Contributing
+## Contributing
 
 Feel free to contribute to this application. For major changes, 
 please open an issue first to discuss what you would like to change.
