@@ -34,7 +34,7 @@ The Module test report can be found here Module Test Report [Test Report](https:
 
 ## The structure
 
-![domain-model](./img_test/model.png )
+![domain-model](./todoWithTimer/img_test/model.png )
 
 ## Set up
 
