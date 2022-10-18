@@ -1,17 +1,23 @@
 
-
 /**
  *
  */
 export default class SaveAndRead {
-
-  saveTodosToLocal(todo) {
+  /**
+   *
+   * @param todo
+   */
+  saveTodosToLocal (todo) {
     const todos = this.loadTodos()
     todos.push(todo)
     localStorage.setItem('todos', JSON.stringify(todos))
   }
 
-  removeTodosFromLocalstorage(todo) {
+  /**
+   *
+   * @param todo
+   */
+  removeTodosFromLocalstorage (todo) {
     const todos = this.loadTodos()
     const todoIndex = todo.children[0].innerText
     const index = todos.map(todo => todo.task).indexOf(todoIndex)
@@ -21,7 +27,10 @@ export default class SaveAndRead {
     localStorage.setItem('todos', JSON.stringify(todos))
   }
 
-  loadTodos() {
+  /**
+   *
+   */
+  loadTodos () {
     let todos
     if (localStorage.getItem('todos') === null) {
       todos = []

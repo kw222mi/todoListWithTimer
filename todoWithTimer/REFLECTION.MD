@@ -58,7 +58,7 @@ För den här uppgiften har jag bara gjort manuella tester. Så mina reflektione
 ## Kapitel 10
  
 Genom att formattera om koden efter de funktioner som anropar varandra ser jag bättre, vilka variabler som hör samman med vilka funktioner. 
-Och det gör det lättare för mig att bryta ut klasser och skapa större "cohesion". Till exempel vill jag i Timer - modulen bryta ut en klass som är ansvarig för det som händer när tiden är slut. Jag märker att det blir svårt att ha översikt över mer än 200 rader kod och då är de ändå hyfsat väl organiserade. Att bryta upp i fler klasser gör det enklare att hålla koden städad.
+Och det gör det lättare för mig att bryta ut klasser och skapa större "cohesion". Till exempel vill jag i Timer - modulen bryta ut en klass som är ansvarig för det som händer när tiden är slut. Jag märker att det blir svårt att ha översikt över mer än 200 rader kod och då är de ändå hyfsat väl organiserade. Att bryta upp i fler klasser gör det enklare att hålla koden städad. 
 
 ## Kapitel 11
 

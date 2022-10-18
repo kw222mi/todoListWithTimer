@@ -1,4 +1,23 @@
-# Test
+# Testrapport
+
+## Sammanfattning
+
+|Test| Utfall|
+|-----|------|
+| 1.1 | OK|
+| 1.2 | OK|
+| 1.3 | OK|
+| 1.4 | OK|
+| 2.1 | OK*|
+| 2.2 | OK*|
+| 2.3 | OK*|
+| 3.1 | OK|
+| 4.1 | OK|
+
+* Testerna gick igenom. Men jag har noterat att det ibland, när man tar bort en todo och sedan uppdaterar, har försvunnit två todos istället för en.
+Det händer inte varje gång, så det behöver debuggas ytterligare.
+
+# Tester
 
 ## Lägg till todo
 

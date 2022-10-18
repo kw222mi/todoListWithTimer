@@ -6,16 +6,13 @@ import Timer from './Timer.js'
 export default class TodoTimer {
   #timerDiv
 
-  createTimer(todo, timeString) {
-    this.#timerDiv = document.createElement('div')
-    this.#timerDiv.setAttribute('id', 'timerDiv')
-    todo.appendChild(this.#timerDiv)
-    const tInt = parseInt(timeString)
-    const time = this.#minToSec(tInt)
+  createTimer (todo, timeString) {
+    this.#createDivElement(todo)
+    const timeInSeconds = this.#getTimeInSeconds(timeString)
 
     const timer = new Timer({
       displayElement: this.#timerDiv,
-      timerTime: time,
+      timerTime: timeInSeconds,
       showProgressBar: true,
       pauseOnHover: true,
       timeIsUpAction: 'alertAndRemove',
@@ -23,7 +20,18 @@ export default class TodoTimer {
     })
   }
 
-  #minToSec(tInt) {
-    return tInt * 60
+  #createDivElement (todo) {
+    this.#timerDiv = document.createElement('div')
+    this.#timerDiv.setAttribute('id', 'timerDiv')
+    todo.appendChild(this.#timerDiv)
+  }
+
+  #getTimeInSeconds(timeString) {
+    const timeStringConvertedToInt = parseInt(timeString)
+    return this.#minToSec(timeStringConvertedToInt)
+  }
+
+  #minToSec (timeStringConvertedToInt) {
+    return timeStringConvertedToInt * 60
   }
 }
