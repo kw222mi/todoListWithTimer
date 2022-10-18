@@ -1,6 +1,6 @@
 # Todolist with a timer
 
-[the application]("./todoWithTimer/img_test/App_50.png")
+![the application]("./todoWithTimer/img_test/App_50.png")
 
 This is a tool to keep track of things that need to be done and how long you estimate it will take.
 When you are redy to begin the task, you start the timer. Everything is saved in localstorage.
